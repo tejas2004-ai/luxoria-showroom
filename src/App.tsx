@@ -10,10 +10,10 @@ import { TopProductsShowcase } from "./components/TopProductsShowcase";
 import { Ecosystem } from "./components/Ecosystem";
 import { Finale } from "./components/Finale";
 import { ReserveModal, type ProductSelection } from "./components/ReserveModal";
-import { useTransform, type MotionValue } from "framer-motion";
-import { motion } from "framer-motion";
+import { MonolithCanvas3D } from "./components/MonolithCanvas3D";
+import { MonolithShowroomUI } from "./components/MonolithShowroomUI";
 
-/* ─── product data ─── */
+/* ─── 6 real appliance scenes data ─── */
 const scenes = [
   {
     index: "01",
@@ -134,20 +134,6 @@ const scenes = [
     rotate: -8,
     revealVariant: "cinematic" as RevealVariant,
     imageTransition: "slideLeft" as ImageTransition,
-    atmosphere: ({ progress }: { progress: MotionValue<number> }) => {
-      const scanlineOpacity = useTransform(progress, [0, 0.5, 1], [0, 0.4, 0]);
-      return (
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            opacity: scanlineOpacity,
-            backgroundImage:
-              "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.03) 3px, rgba(255,255,255,0.03) 4px)",
-          }}
-        />
-      );
-    },
   },
 ];
 
@@ -163,6 +149,7 @@ const ecosystemItems = [
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductSelection | null>(null);
+  const [activeTab, setActiveTab] = useState<"3D_WEBGL" | "SHOWROOM">("3D_WEBGL");
 
   const handleOpenReserve = (product?: ProductSelection) => {
     setSelectedProduct(product || null);
@@ -175,22 +162,63 @@ export default function App() {
       <ScrollProgress />
       <ChapterNav />
       <SiteNav onOpenReserve={() => handleOpenReserve()} />
+
+      {/* Mode Switcher HUD Bar */}
+      <div className="fixed bottom-6 left-6 z-50 flex items-center gap-2 glass rounded-full p-1.5 border border-white/10 shadow-2xl">
+        <button
+          onClick={() => setActiveTab("3D_WEBGL")}
+          className={`rounded-full px-4 py-1.5 text-xs font-mono tracking-wider transition-all duration-300 ${
+            activeTab === "3D_WEBGL"
+              ? "bg-[#D4AF37] text-black font-bold shadow-[0_0_20px_rgba(212,175,55,0.5)]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          MONOLITH 3D WebGL
+        </button>
+        <button
+          onClick={() => setActiveTab("SHOWROOM")}
+          className={`rounded-full px-4 py-1.5 text-xs font-mono tracking-wider transition-all duration-300 ${
+            activeTab === "SHOWROOM"
+              ? "bg-[#D4AF37] text-black font-bold shadow-[0_0_20px_rgba(212,175,55,0.5)]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Full Showroom
+        </button>
+      </div>
+
       <main className="relative">
-        <Hero />
-        <TopProductsShowcase onReserveProduct={(product) => handleOpenReserve(product)} />
-        {scenes.map((scene) => (
-          <ProductScene
-            key={scene.index}
-            {...scene}
-            onReserve={(product) => handleOpenReserve(product)}
-          />
-        ))}
-        <Ecosystem
-          items={ecosystemItems}
-          onReserveItem={(product) => handleOpenReserve(product)}
-        />
-        <Finale onOpenReserve={() => handleOpenReserve()} />
+        {activeTab === "3D_WEBGL" ? (
+          <>
+            {/* Real Three.js WebGL 3D Canvas Background Engine */}
+            <MonolithCanvas3D />
+            {/* Glassmorphic Minimalist HUD & Split UI Sections */}
+            <MonolithShowroomUI
+              onInquire={(prodName) =>
+                handleOpenReserve({ title: prodName, priceINR: "Inquire Concierge", image: "/fridge.png" })
+              }
+            />
+          </>
+        ) : (
+          <>
+            <Hero />
+            <TopProductsShowcase onReserveProduct={(product) => handleOpenReserve(product)} />
+            {scenes.map((scene) => (
+              <ProductScene
+                key={scene.index}
+                {...scene}
+                onReserve={(product) => handleOpenReserve(product)}
+              />
+            ))}
+            <Ecosystem
+              items={ecosystemItems}
+              onReserveItem={(product) => handleOpenReserve(product)}
+            />
+            <Finale onOpenReserve={() => handleOpenReserve()} />
+          </>
+        )}
       </main>
+
       <ReserveModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
