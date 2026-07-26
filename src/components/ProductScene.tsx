@@ -325,7 +325,7 @@ export function ProductScene({
                 ),
                 rotateX: springCursorRotateX,
                 opacity,
-                mixBlendMode: "screen",
+                mixBlendMode: "multiply",
                 WebkitMaskImage: "radial-gradient(circle at 50% 50%, black 75%, transparent 98%)",
                 maskImage: "radial-gradient(circle at 50% 50%, black 75%, transparent 98%)",
                 transformPerspective: 1200,

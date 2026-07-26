@@ -10,7 +10,7 @@ export function MonolithCanvas3D() {
 
     // 1. SCENE & CAMERA SETUP
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0a0a0a, 0.035);
+    scene.fog = new THREE.FogExp2(0xfafafa, 0.035);
 
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -372,7 +372,7 @@ export function MonolithCanvas3D() {
     <div
       ref={containerRef}
       className="fixed inset-0 z-0 pointer-events-none w-full h-full"
-      style={{ background: "#0A0A0A" }}
+      style={{ background: "#FAFAFA" }}
     />
   );
 }

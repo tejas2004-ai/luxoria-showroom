@@ -50,41 +50,41 @@
 
 :root {
   --radius: 0.75rem;
-  --ink: oklch(0.10 0.012 85);
-  --background: oklch(0.09 0.012 85); /* Obsidian black with warm undertone */
-  --foreground: oklch(0.95 0.008 85);  /* Clean warm silk white */
-  --card: oklch(0.12 0.015 85);        /* Warm carbon dark card background */
-  --card-foreground: oklch(0.95 0.008 85);
-  --popover: oklch(0.12 0.015 85);
-  --popover-foreground: oklch(0.95 0.008 85);
-  --primary: oklch(0.95 0.008 85);
-  --primary-foreground: oklch(0.10 0.012 85);
-  --secondary: oklch(0.16 0.015 85);
-  --secondary-foreground: oklch(0.95 0.008 85);
-  --muted: oklch(0.16 0.015 85);
-  --muted-foreground: oklch(0.88 0.035 85); /* Bright, crystal-clear warm champagne silk */
-  --accent: oklch(0.88 0.14 85);       /* Luminous champagne gold */
-  --accent-foreground: oklch(0.10 0.012 85);
+  --ink: oklch(0.98 0.005 85);
+  --background: oklch(0.98 0.003 85);    /* Pure Pearl Silk White */
+  --foreground: oklch(0.14 0.015 85);    /* Deep Charcoal Platinum */
+  --card: oklch(0.96 0.005 85);          /* Glassmorphic Pearl Satin Card */
+  --card-foreground: oklch(0.14 0.015 85);
+  --popover: oklch(0.98 0.003 85);
+  --popover-foreground: oklch(0.14 0.015 85);
+  --primary: oklch(0.14 0.015 85);
+  --primary-foreground: oklch(0.98 0.003 85);
+  --secondary: oklch(0.94 0.008 85);
+  --secondary-foreground: oklch(0.14 0.015 85);
+  --muted: oklch(0.94 0.008 85);
+  --muted-foreground: oklch(0.42 0.015 85); /* Crisp, warm platinum gray */
+  --accent: oklch(0.68 0.14 75);         /* Luminous Champagne Gold */
+  --accent-foreground: oklch(0.98 0.003 85);
   --destructive: oklch(0.55 0.18 25);
   --destructive-foreground: oklch(0.98 0.003 248);
-  --border: oklch(1 0 0 / 14%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.82 0.11 85);
-  --graphite: oklch(0.18 0.012 85);
-  --silver: oklch(0.82 0.008 85);
-  --frost: oklch(0.90 0.015 85);
-  --gold: oklch(0.82 0.11 85);         /* Champagne gold */
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.08);
+  --ring: oklch(0.68 0.14 75);
+  --graphite: oklch(0.25 0.012 85);
+  --silver: oklch(0.40 0.008 85);
+  --frost: oklch(0.35 0.015 85);
+  --gold: oklch(0.68 0.14 75);           /* Champagne Gold */
   --gradient-hero: radial-gradient(
     120% 100% at 50% 0%,
-    color-mix(in oklab, var(--gold) 16%, transparent) 0%,
-    transparent 65%
+    color-mix(in oklab, var(--gold) 15%, transparent) 0%,
+    transparent 70%
   );
   --gradient-glow: radial-gradient(
     closest-side,
-    color-mix(in oklab, var(--gold) 40%, transparent),
+    color-mix(in oklab, var(--gold) 25%, transparent),
     transparent
   );
-  --shadow-float: 0 60px 120px -40px color-mix(in oklab, var(--gold) 20%, transparent);
+  --shadow-float: 0 40px 80px -20px color-mix(in oklab, var(--gold) 15%, transparent);
 }
 
 @layer base {
@@ -184,18 +184,18 @@
 
 /* ====== Custom Utilities ====== */
 @utility glass {
-  background: color-mix(in oklab, var(--foreground) 5%, transparent);
-  backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
 }
 
 @utility text-gradient {
   background: linear-gradient(
     135deg,
-    #FFFFFF 0%,
-    #F6E7CF 50%,
-    #E8D09E 100%
+    #141414 0%,
+    #2A2A2A 45%,
+    #B8860B 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
