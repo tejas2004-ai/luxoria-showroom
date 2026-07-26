@@ -187,7 +187,7 @@ export function TopProductsShowcase({
                   loading="lazy"
                   decoding="async"
                   style={{
-                    mixBlendMode: "multiply",
+                    mixBlendMode: "screen",
                     WebkitMaskImage: "radial-gradient(circle at 50% 50%, black 82%, transparent 98%)",
                     maskImage: "radial-gradient(circle at 50% 50%, black 82%, transparent 98%)",
                   }}
