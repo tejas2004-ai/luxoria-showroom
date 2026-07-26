@@ -11,7 +11,6 @@ import { Ecosystem } from "./components/Ecosystem";
 import { Finale } from "./components/Finale";
 import { ReserveModal, type ProductSelection } from "./components/ReserveModal";
 import { MonolithCanvas3D } from "./components/MonolithCanvas3D";
-import { MonolithShowroomUI } from "./components/MonolithShowroomUI";
 
 /* ─── 6 real appliance scenes data ─── */
 const scenes = [
@@ -149,7 +148,6 @@ const ecosystemItems = [
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductSelection | null>(null);
-  const [activeTab, setActiveTab] = useState<"3D_WEBGL" | "SHOWROOM">("3D_WEBGL");
 
   const handleOpenReserve = (product?: ProductSelection) => {
     setSelectedProduct(product || null);
@@ -163,60 +161,24 @@ export default function App() {
       <ChapterNav />
       <SiteNav onOpenReserve={() => handleOpenReserve()} />
 
-      {/* Mode Switcher HUD Bar */}
-      <div className="fixed bottom-6 left-6 z-50 flex items-center gap-2 glass rounded-full p-1.5 border border-white/10 shadow-2xl">
-        <button
-          onClick={() => setActiveTab("3D_WEBGL")}
-          className={`rounded-full px-4 py-1.5 text-xs font-mono tracking-wider transition-all duration-300 ${
-            activeTab === "3D_WEBGL"
-              ? "bg-[#D4AF37] text-black font-bold shadow-[0_0_20px_rgba(212,175,55,0.5)]"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          MONOLITH 3D WebGL
-        </button>
-        <button
-          onClick={() => setActiveTab("SHOWROOM")}
-          className={`rounded-full px-4 py-1.5 text-xs font-mono tracking-wider transition-all duration-300 ${
-            activeTab === "SHOWROOM"
-              ? "bg-[#D4AF37] text-black font-bold shadow-[0_0_20px_rgba(212,175,55,0.5)]"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          Full Showroom
-        </button>
-      </div>
+      {/* Merged WebGL 3D Canvas Background Architecture */}
+      <MonolithCanvas3D />
 
-      <main className="relative">
-        {activeTab === "3D_WEBGL" ? (
-          <>
-            {/* Real Three.js WebGL 3D Canvas Background Engine */}
-            <MonolithCanvas3D />
-            {/* Glassmorphic Minimalist HUD & Split UI Sections */}
-            <MonolithShowroomUI
-              onInquire={(prodName) =>
-                handleOpenReserve({ title: prodName, priceINR: "Inquire Concierge", image: "/fridge.png" })
-              }
-            />
-          </>
-        ) : (
-          <>
-            <Hero />
-            <TopProductsShowcase onReserveProduct={(product) => handleOpenReserve(product)} />
-            {scenes.map((scene) => (
-              <ProductScene
-                key={scene.index}
-                {...scene}
-                onReserve={(product) => handleOpenReserve(product)}
-              />
-            ))}
-            <Ecosystem
-              items={ecosystemItems}
-              onReserveItem={(product) => handleOpenReserve(product)}
-            />
-            <Finale onOpenReserve={() => handleOpenReserve()} />
-          </>
-        )}
+      <main className="relative z-10">
+        <Hero />
+        <TopProductsShowcase onReserveProduct={(product) => handleOpenReserve(product)} />
+        {scenes.map((scene) => (
+          <ProductScene
+            key={scene.index}
+            {...scene}
+            onReserve={(product) => handleOpenReserve(product)}
+          />
+        ))}
+        <Ecosystem
+          items={ecosystemItems}
+          onReserveItem={(product) => handleOpenReserve(product)}
+        />
+        <Finale onOpenReserve={() => handleOpenReserve()} />
       </main>
 
       <ReserveModal

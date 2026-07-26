@@ -173,14 +173,6 @@ export function ProductScene({
         className="pointer-events-none absolute inset-0 transform-gpu will-change-transform"
       />
 
-      {/* Giant Parallax Watermark Number (Rises up seamlessly with product entrance) */}
-      <motion.div
-        aria-hidden="true"
-        style={{ y: watermarkY, opacity: watermarkOpacity, scale: watermarkScale }}
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none font-display text-[clamp(14rem,35vw,36rem)] font-extralight tracking-tighter text-white z-0 transform-gpu will-change-transform"
-      >
-        {index}
-      </motion.div>
 
       <div className="sticky top-0 flex h-svh w-full items-center overflow-hidden z-10" style={{ perspective: "1400px" }}>
         <Particles tone={tone} count={30} />
