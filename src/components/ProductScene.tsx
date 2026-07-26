@@ -119,9 +119,10 @@ export function ProductScene({
     };
   }, [cursorRotateX, cursorRotateY]);
 
-  // Deep background parallax watermark
-  const watermarkY = useTransform(progress, [0, 1], ["40%", "-40%"]);
-  const watermarkOpacity = useTransform(progress, [0.1, 0.4, 0.7, 0.9], [0, 0.06, 0.06, 0]);
+  // Deep background parallax watermark digits rising upward seamlessly with product
+  const watermarkY = useTransform(progress, [0, 0.35, 0.7, 1], ["140px", "0px", "0px", "-140px"]);
+  const watermarkOpacity = useTransform(progress, [0.05, 0.3, 0.75, 0.95], [0, 0.12, 0.12, 0]);
+  const watermarkScale = useTransform(progress, [0, 0.35, 0.7, 1], [0.85, 1.0, 1.0, 1.12]);
 
   // Unique image entrance animations per product
   const imageTransitions: Record<ImageTransition, { initial: object; animate: object; transition: object }> = {
@@ -172,10 +173,10 @@ export function ProductScene({
         className="pointer-events-none absolute inset-0 transform-gpu will-change-transform"
       />
 
-      {/* Giant Parallax Watermark Number */}
+      {/* Giant Parallax Watermark Number (Rises up seamlessly with product entrance) */}
       <motion.div
         aria-hidden="true"
-        style={{ y: watermarkY, opacity: watermarkOpacity }}
+        style={{ y: watermarkY, opacity: watermarkOpacity, scale: watermarkScale }}
         className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none font-display text-[clamp(14rem,35vw,36rem)] font-extralight tracking-tighter text-white z-0 transform-gpu will-change-transform"
       >
         {index}
