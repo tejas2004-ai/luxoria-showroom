@@ -4,7 +4,8 @@ import { CustomCursor } from "./components/CustomCursor";
 import { ScrollProgress, SiteNav } from "./components/SiteChrome";
 import { ChapterNav } from "./components/ChapterNav";
 import { Hero } from "./components/Hero";
-import { ProductScene } from "./components/ProductScene";
+import { ProductScene, type ImageTransition } from "./components/ProductScene";
+import { type RevealVariant } from "./components/RevealText";
 import { Ecosystem } from "./components/Ecosystem";
 import { Finale } from "./components/Finale";
 import { ReserveModal, type ProductSelection } from "./components/ReserveModal";
@@ -30,6 +31,8 @@ const scenes = [
     wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--frost) 12%, transparent), transparent 70%)",
     align: "left" as const,
     rotate: 8,
+    revealVariant: "rise" as RevealVariant,
+    imageTransition: "float" as ImageTransition,
   },
   {
     index: "02",
@@ -48,6 +51,8 @@ const scenes = [
     wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 70%)",
     align: "right" as const,
     rotate: -8,
+    revealVariant: "slideLeft" as RevealVariant,
+    imageTransition: "slideRight" as ImageTransition,
   },
   {
     index: "03",
@@ -66,6 +71,8 @@ const scenes = [
     wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--silver) 10%, transparent), transparent 70%)",
     align: "left" as const,
     rotate: 6,
+    revealVariant: "rotateIn" as RevealVariant,
+    imageTransition: "spin" as ImageTransition,
   },
   {
     index: "04",
@@ -84,6 +91,8 @@ const scenes = [
     wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 70%)",
     align: "right" as const,
     rotate: -6,
+    revealVariant: "scaleUp" as RevealVariant,
+    imageTransition: "zoom" as ImageTransition,
   },
   {
     index: "05",
@@ -102,6 +111,8 @@ const scenes = [
     wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 70%)",
     align: "left" as const,
     rotate: 8,
+    revealVariant: "slideRight" as RevealVariant,
+    imageTransition: "slideUp" as ImageTransition,
   },
   {
     index: "06",
@@ -120,6 +131,8 @@ const scenes = [
     wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--frost) 14%, transparent), transparent 70%)",
     align: "right" as const,
     rotate: -8,
+    revealVariant: "cinematic" as RevealVariant,
+    imageTransition: "slideLeft" as ImageTransition,
     atmosphere: ({ progress }: { progress: MotionValue<number> }) => {
       const scanlineOpacity = useTransform(progress, [0, 0.5, 1], [0, 0.4, 0]);
       return (

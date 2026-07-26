@@ -1,7 +1,9 @@
 import { useRef, useEffect, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useSpring, useMotionValue, type MotionValue } from "framer-motion";
 import { Particles } from "./Particles";
-import { RevealText } from "./RevealText";
+import { RevealText, type RevealVariant } from "./RevealText";
+
+export type ImageTransition = "float" | "zoom" | "slideUp" | "slideLeft" | "slideRight" | "spin";
 
 export type SceneProps = {
   index: string;
@@ -21,6 +23,8 @@ export type SceneProps = {
   atmosphere?: (p: { progress: MotionValue<number> }) => ReactNode;
   align?: "left" | "right";
   rotate?: number;
+  revealVariant?: RevealVariant;
+  imageTransition?: ImageTransition;
   onReserve?: (product: { title: string; priceINR: string; image: string }) => void;
 };
 
@@ -42,6 +46,8 @@ export function ProductScene({
   atmosphere,
   align = "left",
   rotate = 8,
+  revealVariant = "rise",
+  imageTransition = "float",
   onReserve,
 }: SceneProps) {
   const ref = useRef<HTMLElement>(null);
@@ -106,6 +112,41 @@ export function ProductScene({
   const watermarkY = useTransform(progress, [0, 1], ["40%", "-40%"]);
   const watermarkOpacity = useTransform(progress, [0.1, 0.4, 0.7, 0.9], [0, 0.06, 0.06, 0]);
 
+  // Unique image entrance animations per product
+  const imageTransitions: Record<ImageTransition, { initial: object; animate: object; transition: object }> = {
+    float: {
+      initial: { opacity: 0, y: 80, scale: 0.9 },
+      animate: { opacity: 1, y: 0, scale: 1 },
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+    },
+    zoom: {
+      initial: { opacity: 0, scale: 0.5, filter: "blur(20px)" },
+      animate: { opacity: 1, scale: 1, filter: "blur(0px)" },
+      transition: { duration: 1.4, ease: [0.22, 1, 0.36, 1] },
+    },
+    slideUp: {
+      initial: { opacity: 0, y: 120, rotateX: 15 },
+      animate: { opacity: 1, y: 0, rotateX: 0 },
+      transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] },
+    },
+    slideLeft: {
+      initial: { opacity: 0, x: 120, rotateY: -15 },
+      animate: { opacity: 1, x: 0, rotateY: 0 },
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+    },
+    slideRight: {
+      initial: { opacity: 0, x: -120, rotateY: 15 },
+      animate: { opacity: 1, x: 0, rotateY: 0 },
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+    },
+    spin: {
+      initial: { opacity: 0, rotate: -20, scale: 0.7, filter: "blur(12px)" },
+      animate: { opacity: 1, rotate: 0, scale: 1, filter: "blur(0px)" },
+      transition: { duration: 1.5, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+  const imgAnim = imageTransitions[imageTransition];
+
   return (
     <section
       ref={ref}
@@ -158,6 +199,7 @@ export function ProductScene({
             <RevealText
               as="h2"
               text={title}
+              variant={revealVariant}
               className="text-[clamp(2.5rem,6.5vw,5.5rem)] font-light leading-[0.96] text-gradient"
             />
 
@@ -212,11 +254,15 @@ export function ProductScene({
             </div>
           </motion.div>
 
-          {/* Product image with cursor-controlled 3D tilt */}
-          <div
+          {/* Product image with cursor-controlled 3D tilt + unique entrance */}
+          <motion.div
             ref={imgContainerRef}
             className={`relative flex items-center justify-center ${align === "right" ? "md:order-1" : ""}`}
             style={{ perspective: "1200px" }}
+            initial={imgAnim.initial}
+            whileInView={imgAnim.animate}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={imgAnim.transition}
             data-cursor
             data-cursor-label="3D"
           >
@@ -268,7 +314,7 @@ export function ProductScene({
                 rotateY: springCursorRotateY,
               }}
             />
-          </div>
+          </motion.div>
         </div>
       </div>
       <h3 id={`scene-${index}`} className="sr-only">
