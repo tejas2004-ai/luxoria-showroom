@@ -6,6 +6,7 @@ import { ChapterNav } from "./components/ChapterNav";
 import { Hero } from "./components/Hero";
 import { ProductScene, type ImageTransition } from "./components/ProductScene";
 import { type RevealVariant } from "./components/RevealText";
+import { TopProductsShowcase } from "./components/TopProductsShowcase";
 import { Ecosystem } from "./components/Ecosystem";
 import { Finale } from "./components/Finale";
 import { ReserveModal, type ProductSelection } from "./components/ReserveModal";
@@ -176,6 +177,7 @@ export default function App() {
       <SiteNav onOpenReserve={() => handleOpenReserve()} />
       <main className="relative">
         <Hero />
+        <TopProductsShowcase onReserveProduct={(product) => handleOpenReserve(product)} />
         {scenes.map((scene) => (
           <ProductScene
             key={scene.index}
