@@ -10,7 +10,6 @@ import { TopProductsShowcase } from "./components/TopProductsShowcase";
 import { Ecosystem } from "./components/Ecosystem";
 import { Finale } from "./components/Finale";
 import { ReserveModal, type ProductSelection } from "./components/ReserveModal";
-import { MonolithCanvas3D } from "./components/MonolithCanvas3D";
 
 /* ─── 6 real appliance scenes data ─── */
 const scenes = [
@@ -161,10 +160,7 @@ export default function App() {
       <ChapterNav />
       <SiteNav onOpenReserve={() => handleOpenReserve()} />
 
-      {/* Merged WebGL 3D Canvas Background Architecture */}
-      <MonolithCanvas3D />
-
-      <main className="relative z-10">
+      <main className="relative">
         <Hero />
         <TopProductsShowcase onReserveProduct={(product) => handleOpenReserve(product)} />
         {scenes.map((scene) => (
