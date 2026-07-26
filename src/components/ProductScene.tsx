@@ -300,7 +300,7 @@ export function ProductScene({
               className="absolute inset-0 z-20 pointer-events-none rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.06)_0%,transparent_60%)]"
             />
 
-            {/* Product image with combined scroll + cursor transforms and 100% seamless background blending */}
+            {/* Product image with clean 2D scale + lift entrance */}
             <motion.img
               src={image}
               alt={title}
@@ -311,26 +311,18 @@ export function ProductScene({
               style={{
                 scale,
                 y,
-                rotateY: useTransform(
-                  [scrollRotateY, springCursorRotateY],
-                  ([sr, cr]) => (sr as number) + (cr as number)
-                ),
-                rotateX: springCursorRotateX,
                 opacity,
-                filter: "drop-shadow(0 35px 70px rgba(0,0,0,0.75))",
-                transformPerspective: 1200,
+                filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.65))",
               }}
               className="relative z-10 max-h-[62svh] w-auto max-w-full object-contain transform-gpu will-change-transform"
             />
 
-            {/* Dynamic floor reflection */}
+            {/* Subtle floor reflection glow */}
             <motion.div
               aria-hidden="true"
-              className="absolute bottom-[-8%] left-1/2 w-[60%] h-[30%] -translate-x-1/2 rounded-full opacity-20 blur-[40px]"
+              className="absolute bottom-[-8%] left-1/2 w-[60%] h-[30%] -translate-x-1/2 rounded-full opacity-25 blur-[40px]"
               style={{
-                background: `radial-gradient(ellipse, color-mix(in oklab, var(--accent) 30%, transparent), transparent 70%)`,
-                rotateX: springCursorRotateX,
-                rotateY: springCursorRotateY,
+                background: `radial-gradient(ellipse, rgba(155, 113, 178, 0.35) 0%, transparent 70%)`,
               }}
             />
           </motion.div>

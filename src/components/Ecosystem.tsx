@@ -67,22 +67,16 @@ export function Ecosystem({
           style={{ x }}
           className="relative z-10 mt-14 flex items-end gap-10 will-change-transform md:gap-20"
         >
-          {items.map((item, i) => (
+          {items.map((item) => (
             <motion.li
               key={item.label}
               onClick={() => onReserveItem?.({ title: item.label, priceINR: item.price || "", image: item.src })}
-              style={{
-                rotate: i % 2 === 0 ? rot : rotAlt,
-                transformPerspective: 800,
-              }}
               className="group relative flex shrink-0 cursor-pointer flex-col items-center"
-              whileHover={{ scale: 1.08, rotateY: 5, z: 40 }}
+              whileHover={{ scale: 1.05, y: -8 }}
               whileTap={{ scale: 0.96 }}
-              transition={{ type: "spring", stiffness: 220, damping: 18 }}
-              data-cursor
-              data-cursor-label="PREVIEW"
+              transition={{ type: "spring", stiffness: 240, damping: 20 }}
             >
-              <div className="relative flex h-[30svh] items-end md:h-[38svh]" style={{ perspective: "600px" }}>
+              <div className="relative flex h-[30svh] items-end md:h-[38svh]">
                 <div
                   aria-hidden="true"
                   className="glow-orb absolute inset-x-4 bottom-0 aspect-square animate-breathe rounded-full opacity-60 transition-opacity duration-300 group-hover:opacity-100"

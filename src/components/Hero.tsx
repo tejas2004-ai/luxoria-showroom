@@ -48,17 +48,14 @@ export function Hero() {
           }}
         />
 
-        {/* 3D perspective grid with cursor tilt */}
+        {/* Clean grid background overlay */}
         <motion.div
           aria-hidden="true"
           style={{
             scale: gridScale,
             opacity: gridOpacity,
-            rotateX: gridRotateX,
-            rotateY: gridRotateY,
-            transformPerspective: 1200,
             backgroundImage:
-              "linear-gradient(to right, color-mix(in oklab, var(--foreground) 7%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 7%, transparent) 1px, transparent 1px)",
+              "linear-gradient(to right, rgba(227, 208, 234, 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(227, 208, 234, 0.06) 1px, transparent 1px)",
             backgroundSize: "72px 72px",
             maskImage: "radial-gradient(70% 55% at 50% 45%, black, transparent)",
           }}
