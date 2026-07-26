@@ -68,8 +68,8 @@ export function ProductScene({
   const y = useTransform(progress, [0, 0.35, 0.7, 1], ["100px", "0px", "0px", "-100px"]);
   // Spotlight center 3D rotation: rotateY -15deg -> 0deg -> 15deg
   const scrollRotateY = useTransform(progress, [0.2, 0.45, 0.7, 0.9], [-15, 0, 0, 15]);
-  // Floating feature callouts speed: 1.2
-  const featureCalloutY = useTransform(progress, [0, 1], ["120px", "-120px"]);
+  // Floating feature callouts subtle parallax drift (prevents content overlap)
+  const featureCalloutY = useTransform(progress, [0, 1], ["12px", "-12px"]);
 
   const opacity = useTransform(progress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
   const washOpacity = useTransform(progress, [0, 0.35, 0.7, 1], [0, 1, 1, 0]);
