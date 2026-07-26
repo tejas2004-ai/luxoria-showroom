@@ -95,9 +95,7 @@ export function Ecosystem({
                   loading="lazy"
                   decoding="async"
                   style={{
-                    mixBlendMode: "screen",
-                    WebkitMaskImage: "radial-gradient(circle at 50% 50%, black 80%, transparent 98%)",
-                    maskImage: "radial-gradient(circle at 50% 50%, black 80%, transparent 98%)",
+                    filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.65))",
                   }}
                   className="relative h-full w-auto object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.65)] transition-transform duration-500 group-hover:scale-105"
                 />

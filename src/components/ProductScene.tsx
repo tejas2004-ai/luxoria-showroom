@@ -317,9 +317,7 @@ export function ProductScene({
                 ),
                 rotateX: springCursorRotateX,
                 opacity,
-                mixBlendMode: "screen",
-                WebkitMaskImage: "radial-gradient(circle at 50% 50%, black 75%, transparent 98%)",
-                maskImage: "radial-gradient(circle at 50% 50%, black 75%, transparent 98%)",
+                filter: "drop-shadow(0 35px 70px rgba(0,0,0,0.75))",
                 transformPerspective: 1200,
               }}
               className="relative z-10 max-h-[62svh] w-auto max-w-full object-contain transform-gpu will-change-transform"
