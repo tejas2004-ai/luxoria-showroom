@@ -56,16 +56,27 @@ export function ProductScene({
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const progress = scrollYProgress; // Direct scroll progress for zero frame lag
 
-  // Scroll-driven transforms (pure GPU transforms)
-  const scale = useTransform(progress, [0, 0.45, 1], [0.75, 1, 0.88]);
-  const y = useTransform(progress, [0, 1], ["10%", "-10%"]);
-  const scrollRotateY = useTransform(progress, [0, 1], [rotate, -rotate]);
-  const opacity = useTransform(progress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.2]);
+  // Antigravity Core Mechanics Configuration
+  // Ease function: cubic-bezier(0.25, 1, 0.5, 1)
+  const easeFn = [0.25, 1, 0.5, 1] as const;
+
+  // Multi-layered Parallax Depth
+  // Ambient lighting texture speed: 0.2
+  const ambientLightY = useTransform(progress, [0, 1], ["20%", "-20%"]);
+  // Main appliance asset speed: 0.8 (Scale 0.95 -> 1.0, Y: 100 -> 0 -> -100)
+  const scale = useTransform(progress, [0, 0.4, 0.7, 1], [0.95, 1.0, 1.0, 0.95]);
+  const y = useTransform(progress, [0, 0.35, 0.7, 1], ["100px", "0px", "0px", "-100px"]);
+  // Spotlight center 3D rotation: rotateY -15deg -> 0deg -> 15deg
+  const scrollRotateY = useTransform(progress, [0.2, 0.45, 0.7, 0.9], [-15, 0, 0, 15]);
+  // Floating feature callouts speed: 1.2
+  const featureCalloutY = useTransform(progress, [0, 1], ["120px", "-120px"]);
+
+  const opacity = useTransform(progress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
   const washOpacity = useTransform(progress, [0, 0.35, 0.7, 1], [0, 1, 1, 0]);
   const glowScale = useTransform(progress, [0, 0.5, 1], [0.7, 1.15, 0.8]);
 
   // Apple-style scroll upward reveal for text block
-  const textY = useTransform(progress, [0, 0.3, 0.75, 1], [40, 0, 0, -40]);
+  const textY = useTransform(progress, [0, 0.3, 0.75, 1], [50, 0, 0, -50]);
   const textOpacity = useTransform(progress, [0, 0.15, 0.85, 1], [0.4, 1, 1, 0.4]);
   const textScale = useTransform(progress, [0, 0.3, 0.75, 1], [0.97, 1, 1, 0.97]);
 
@@ -154,10 +165,11 @@ export function ProductScene({
       aria-labelledby={`scene-heading-${index}`}
       className="relative min-h-[220svh] w-full"
     >
+      {/* Ambient background lighting texture (speed: 0.2) */}
       <motion.div
         aria-hidden="true"
-        style={{ opacity: washOpacity, background: wash }}
-        className="pointer-events-none absolute inset-0"
+        style={{ opacity: washOpacity, background: wash, y: ambientLightY }}
+        className="pointer-events-none absolute inset-0 transform-gpu will-change-transform"
       />
 
       {/* Giant Parallax Watermark Number */}
@@ -238,7 +250,11 @@ export function ProductScene({
               </div>
             </div>
 
-            <ul className="mt-6 flex flex-wrap gap-2.5">
+            {/* Floating feature callouts (speed: 1.2 parallax depth) */}
+            <motion.ul
+              style={{ y: featureCalloutY }}
+              className="mt-6 flex flex-wrap gap-2.5 transform-gpu will-change-transform"
+            >
               {features.map((f, i) => (
                 <motion.li
                   key={f}
@@ -251,7 +267,7 @@ export function ProductScene({
                   {f}
                 </motion.li>
               ))}
-            </ul>
+            </motion.ul>
 
             <div className="mt-8">
               <button
