@@ -102,10 +102,15 @@ export function ProductScene({
     };
   }, [cursorRotateX, cursorRotateY]);
 
+  // Deep background parallax watermark
+  const watermarkY = useTransform(progress, [0, 1], ["40%", "-40%"]);
+  const watermarkOpacity = useTransform(progress, [0.1, 0.4, 0.7, 0.9], [0, 0.06, 0.06, 0]);
+
   return (
     <section
       ref={ref}
-      aria-labelledby={`scene-${index}`}
+      id={`scene-${index}`}
+      aria-labelledby={`scene-heading-${index}`}
       className="relative min-h-[220svh] w-full"
     >
       <motion.div
@@ -114,7 +119,16 @@ export function ProductScene({
         className="pointer-events-none absolute inset-0"
       />
 
-      <div className="sticky top-0 flex h-svh w-full items-center overflow-hidden" style={{ perspective: "1400px" }}>
+      {/* Giant Parallax Watermark Number */}
+      <motion.div
+        aria-hidden="true"
+        style={{ y: watermarkY, opacity: watermarkOpacity }}
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none font-display text-[clamp(14rem,35vw,36rem)] font-extralight tracking-tighter text-white z-0 transform-gpu will-change-transform"
+      >
+        {index}
+      </motion.div>
+
+      <div className="sticky top-0 flex h-svh w-full items-center overflow-hidden z-10" style={{ perspective: "1400px" }}>
         <Particles tone={tone} count={30} />
         {atmosphere?.({ progress })}
 

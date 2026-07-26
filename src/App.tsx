@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SmoothScroll } from "./components/SmoothScroll";
 import { CustomCursor } from "./components/CustomCursor";
 import { ScrollProgress, SiteNav } from "./components/SiteChrome";
+import { ChapterNav } from "./components/ChapterNav";
 import { Hero } from "./components/Hero";
 import { ProductScene } from "./components/ProductScene";
 import { Ecosystem } from "./components/Ecosystem";
@@ -52,25 +53,25 @@ const scenes = [
     index: "03",
     eyebrow: "LG Fabric Care",
     title: "LG Front Load Washing Machine.",
-    copy: "AI DD direct drive technology senses weight and fabric softness to optimize wash motions automatically. TurboWash 360° completes cycles in 39 minutes.",
+    copy: "AI Direct Drive intelligent fabric protection with TurboWash 360° deep cleaning and Steam+ allergy reduction in under 39 minutes.",
     features: ["AI DD Motor", "TurboWash 360°", "Steam+ Allergy Care", "ThinQ Wi-Fi"],
     image: "/washer.png",
     width: 600,
     height: 800,
-    tone: "frost" as const,
+    tone: "neutral" as const,
     priceINR: "₹44,990",
     priceUSD: "$540",
     brandEdition: "LG ThinQ Edition",
-    warranty: "10-Yr Direct Drive Warranty",
-    wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--silver) 12%, transparent), transparent 70%)",
+    warranty: "10-Yr Motor Warranty",
+    wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--silver) 10%, transparent), transparent 70%)",
     align: "left" as const,
     rotate: 6,
   },
   {
     index: "04",
-    eyebrow: "IFB Thermal Care",
+    eyebrow: "IFB Culinary Precision",
     title: "IFB Convection Microwave Oven.",
-    copy: "30L capacity convection oven with 101 auto-cook menus. Multi-stage cooking with motorized rotisserie and oil-free crisp frying.",
+    copy: "30L Stainless Steel cavity with 101 Auto-Cook menus and oil-free crisping technology for precision culinary perfection.",
     features: ["30L Convection", "101 Auto-Cook", "Oil-Free Crisp", "Rotisserie Grill"],
     image: "/microwave.png",
     width: 700,
@@ -80,47 +81,47 @@ const scenes = [
     priceUSD: "$220",
     brandEdition: "IFB Culinary Edition",
     warranty: "3-Yr Super Warranty",
-    wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--gold) 12%, transparent), transparent 70%)",
+    wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 70%)",
     align: "right" as const,
     rotate: -6,
   },
   {
     index: "05",
-    eyebrow: "Philips Extraction",
+    eyebrow: "Philips Culinary Power",
     title: "Philips Mixer Grinder.",
-    copy: "750W Turbo torque motor with PowerChop technology. Heavy-duty leak-proof stainless steel jars engineered for tough Indian spice grinding.",
+    copy: "750W Turbo torque motor with PowerChop technology and leak-proof stainless steel jars for velvety smooth grinds.",
     features: ["750W Turbo Motor", "PowerChop Tech", "3 Leak-Proof Jars", "Pulse Control"],
     image: "/blender.png",
-    width: 500,
-    height: 800,
-    tone: "cyan" as const,
+    width: 450,
+    height: 750,
+    tone: "ember" as const,
     priceINR: "₹6,499",
     priceUSD: "$78",
     brandEdition: "Philips Avance Edition",
     warranty: "5-Yr Motor Warranty",
-    wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%)",
+    wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 70%)",
     align: "left" as const,
-    rotate: 10,
+    rotate: 8,
   },
   {
     index: "06",
-    eyebrow: "Sony Display",
+    eyebrow: "Sony BRAVIA Cinema",
     title: "Sony Bravia.",
-    copy: "XR Cognitive Processor 4K OLED display with Acoustic Surface Audio+. Self-lit sub-pixels deliver reference-grade contrast and immersive cinema sound.",
+    copy: "4K HDR OLED powered by Cognitive Processor XR™. Deep pure blacks, vibrant realistic contrast, and Acoustic Surface Audio+.",
     features: ["4K OLED Display", "Cognitive XR", "Acoustic Surface", "Dolby Vision IQ"],
     image: "/tv.png",
-    width: 900,
-    height: 550,
-    tone: "neutral" as const,
+    width: 800,
+    height: 500,
+    tone: "cyan" as const,
     priceINR: "₹2,19,990",
     priceUSD: "$2,640",
     brandEdition: "Sony BRAVIA XR Edition",
-    warranty: "3-Yr Panel Care",
-    wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--graphite) 14%, transparent), transparent 70%)",
+    warranty: "3-Yr Panel Warranty",
+    wash: "radial-gradient(80% 65% at 50% 50%, color-mix(in oklab, var(--frost) 14%, transparent), transparent 70%)",
     align: "right" as const,
-    rotate: -5,
+    rotate: -8,
     atmosphere: ({ progress }: { progress: MotionValue<number> }) => {
-      const scanlineOpacity = useTransform(progress, [0.3, 0.5, 0.7], [0, 0.04, 0]);
+      const scanlineOpacity = useTransform(progress, [0, 0.5, 1], [0, 0.4, 0]);
       return (
         <motion.div
           aria-hidden="true"
@@ -158,6 +159,7 @@ export default function App() {
     <SmoothScroll>
       <CustomCursor />
       <ScrollProgress />
+      <ChapterNav />
       <SiteNav onOpenReserve={() => handleOpenReserve()} />
       <main className="relative">
         <Hero />
@@ -168,7 +170,10 @@ export default function App() {
             onReserve={(product) => handleOpenReserve(product)}
           />
         ))}
-        <Ecosystem items={ecosystemItems} />
+        <Ecosystem
+          items={ecosystemItems}
+          onReserveItem={(product) => handleOpenReserve(product)}
+        />
         <Finale onOpenReserve={() => handleOpenReserve()} />
       </main>
       <ReserveModal
