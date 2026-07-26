@@ -173,6 +173,16 @@ export function ProductScene({
         <Particles tone={tone} count={30} />
         {atmosphere?.({ progress })}
 
+        {/* Narrative Chapter Connecting Thread */}
+        <div aria-hidden="true" className="absolute left-6 md:left-14 top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-accent/30 to-transparent hidden md:block">
+          <motion.div
+            className="w-full bg-accent"
+            style={{
+              height: useTransform(progress, [0, 1], ["0%", "100%"]),
+            }}
+          />
+        </div>
+
         <div className="relative mx-auto grid w-full max-w-[1600px] grid-cols-1 items-center gap-8 px-6 md:grid-cols-2 md:px-14">
           {/* Text content with scroll-upward 3D reveal */}
           <motion.div
@@ -186,12 +196,14 @@ export function ProductScene({
             }}
           >
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="font-mono text-xs tracking-[0.35em] text-accent">{index}</span>
+              <span className="font-mono text-xs tracking-[0.35em] text-accent font-semibold">
+                CHAPTER {index} / 06
+              </span>
               <span className="h-px w-8 bg-border" />
               <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
                 {eyebrow}
               </span>
-              <span className="ml-auto rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[0.65rem] uppercase tracking-widest text-accent">
+              <span className="ml-auto rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[0.65rem] uppercase tracking-widest text-accent font-mono">
                 {brandEdition}
               </span>
             </div>
@@ -315,6 +327,12 @@ export function ProductScene({
               }}
             />
           </motion.div>
+        </div>
+
+        {/* Scroll Storytelling Guide Bottom Right */}
+        <div aria-hidden="true" className="absolute bottom-6 right-6 md:right-14 z-20 hidden sm:flex items-center gap-2 font-mono text-[0.65rem] tracking-widest text-muted-foreground/70 uppercase">
+          <span>Scroll to explore</span>
+          <span className="text-accent animate-bounce">↓</span>
         </div>
       </div>
       <h3 id={`scene-${index}`} className="sr-only">
